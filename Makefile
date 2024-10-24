@@ -6,7 +6,7 @@
 #    By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/24 12:32:35 by alisseye          #+#    #+#              #
-#    Updated: 2024/10/24 14:22:30 by alisseye         ###   ########.fr        #
+#    Updated: 2024/10/24 19:20:42 by alisseye         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,24 +15,34 @@ NAME = minitalk
 SERVER = server
 CLIENT = client
 
+SERVER_SRCS = server.c
+CLIENT_SRCS = client.c
+
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-OBJS = ${SRCS:.c=.o}
+LIBFT_PATH = ./libft/
+LIBFT = $(LIBFT_PATH)libft.a
 
-%.o: %.c
-	cc $(CFLAGS) -c $< -o $@
+all: $(SERVER) $(CLIENT)
 
-${NAME}: 
-	cc ${CFLAGS} server.c -o ${SERVER}
-	cc ${CFLAGS} client.c -o ${CLIENT}
+$(NAME): $(SERVER) $(CLIENT)
 
-all: ${NAME}
-	
+$(SERVER):$(LIBFT)
+	$(CC) $(CFLAGS) $(SERVER_SRCS) -o $(SERVER) -L $(LIBFT_PATH) -lft
+
+$(CLIENT): $(LIBFT)
+	$(CC) $(CFLAGS) $(CLIENT_SRCS) -o $(CLIENT) -L $(LIBFT_PATH) -lft
+
+$(LIBFT):
+	make -s -C $(LIBFT_PATH)
+
 clean:
-	rm -f ${OBJS} ${BOBJS}
+	make -s -C $(LIBFT_PATH) clean
 
 fclean: clean
-	rm -f ${SERVER} ${CLIENT}
+	make -s -C $(LIBFT_PATH) fclean
+	rm -f $(SERVER) $(CLIENT)
 
 re: fclean all
 
