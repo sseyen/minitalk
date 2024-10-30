@@ -6,7 +6,7 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:19:49 by alisseye          #+#    #+#             */
-/*   Updated: 2024/10/30 11:32:19 by alisseye         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:09:39 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_sighandle(int signum, siginfo_t *info, void *context)
 	static char		c = 0;
 	static int		i = 0;
 
+	(void)context;
 	if (signum == SIGUSR1)
 		c |= (1 << i);
 	i++;
