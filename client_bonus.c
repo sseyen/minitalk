@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:19:47 by alisseye          #+#    #+#             */
-/*   Updated: 2024/10/30 10:41:32 by alisseye         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:35:55 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+int message_received = 0;
 
 void	ft_kill(int pid, int sig)
 {
@@ -21,7 +23,14 @@ void	ft_kill(int pid, int sig)
 	}
 }
 
-void	ft_sigsend(int pid, char *str)
+void	ft_feedback(int signum)
+{
+	if (signum == SIGUSR1)
+		ft_putstr_fd("Message received\n", 1);
+	message_received = 1;
+}
+
+void	ft_sigsend(pid_t pid, char *str)
 {
 	int	i;
 	int	j;
@@ -37,7 +46,7 @@ void	ft_sigsend(int pid, char *str)
 			else
 				ft_kill(pid, SIGUSR2);
 			j++;
-			usleep(100);
+			usleep(400);
 		}
 		i++;
 	}
@@ -46,13 +55,13 @@ void	ft_sigsend(int pid, char *str)
 	{
 		ft_kill(pid, SIGUSR2);
 		j++;
-		usleep(100);
+		usleep(400);
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	int		pid;
+	pid_t	pid;
 	char	*str;
 
 	if (argc != 3)
@@ -67,11 +76,14 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	pid = ft_atoi(argv[1]);
-	if (pid <= 0)
+	if (pid < 0)
 	{
 		ft_putstr_fd("Invalid PID\n", 1);
 		return (1);
 	}
+	signal(SIGUSR1, ft_feedback);
 	ft_sigsend(pid, str);
+	while (message_received == 0)
+		pause();
 	return (0);
 }
