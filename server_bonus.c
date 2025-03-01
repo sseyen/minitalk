@@ -6,7 +6,7 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:19:49 by alisseye          #+#    #+#             */
-/*   Updated: 2024/10/30 16:09:39 by alisseye         ###   ########.fr       */
+/*   Updated: 2025/03/01 17:37:49 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(void)
 	ft_putchar_fd('\n', 1);
 	sa.sa_sigaction = &ft_sighandle;
 	sa.sa_flags = SA_SIGINFO;
+	sigemptyset(&sa.sa_mask);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
