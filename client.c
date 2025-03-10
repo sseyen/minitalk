@@ -6,7 +6,7 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:19:47 by alisseye          #+#    #+#             */
-/*   Updated: 2024/10/30 10:41:32 by alisseye         ###   ########.fr       */
+/*   Updated: 2025/03/10 15:58:18 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_sigsend(int pid, char *str)
 			else
 				ft_kill(pid, SIGUSR2);
 			j++;
-			usleep(100);
+			usleep(300);
 		}
 		i++;
 	}
@@ -46,7 +46,7 @@ void	ft_sigsend(int pid, char *str)
 	{
 		ft_kill(pid, SIGUSR2);
 		j++;
-		usleep(100);
+		usleep(300);
 	}
 }
 
