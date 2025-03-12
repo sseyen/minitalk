@@ -6,13 +6,13 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:19:47 by alisseye          #+#    #+#             */
-/*   Updated: 2024/10/30 11:35:55 by alisseye         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:06:31 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int message_received = 0;
+int	g_message_received = 0;
 
 void	ft_kill(int pid, int sig)
 {
@@ -27,7 +27,7 @@ void	ft_feedback(int signum)
 {
 	if (signum == SIGUSR1)
 		ft_putstr_fd("Message received\n", 1);
-	message_received = 1;
+	g_message_received = 1;
 }
 
 void	ft_sigsend(pid_t pid, char *str)
@@ -83,7 +83,7 @@ int	main(int argc, char **argv)
 	}
 	signal(SIGUSR1, ft_feedback);
 	ft_sigsend(pid, str);
-	while (message_received == 0)
+	while (g_message_received == 0)
 		pause();
 	return (0);
 }
