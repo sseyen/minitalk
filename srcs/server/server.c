@@ -6,7 +6,7 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:19:49 by alisseye          #+#    #+#             */
-/*   Updated: 2025/03/17 15:32:00 by alisseye         ###   ########.fr       */
+/*   Updated: 2025/03/17 16:48:26 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ static void	allocate_buff(int signum, char **buff)
 		}
 		(*buff)[0] = 0;
 		i = 0;
-		size = 0;
 		while (i < size)
 			(*buff)[i++] = 0;
 		i = 0;
+		size = 0;
 	}
 }
 
