@@ -6,7 +6,7 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:19:49 by alisseye          #+#    #+#             */
-/*   Updated: 2025/03/17 16:48:26 by alisseye         ###   ########.fr       */
+/*   Updated: 2025/03/17 16:51:48 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	allocate_buff(int signum, char **buff)
 	i++;
 	if (i == 32)
 	{
-		*buff = malloc(sizeof(char) * size);
+		*buff = malloc(sizeof(char) * size + 1);
 		if (!*buff)
 		{
 			ft_putendl_fd("Error: malloc failed", 2);
