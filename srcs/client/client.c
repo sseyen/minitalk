@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client_bonus.c                                     :+:      :+:    :+:   */
+/*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:19:47 by alisseye          #+#    #+#             */
-/*   Updated: 2025/03/12 14:06:31 by alisseye         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:30:41 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,21 @@
 
 int	g_message_received = 0;
 
-void	ft_kill(int pid, int sig)
+static void	feedback(int signum)
 {
-	if (kill(pid, sig) == -1)
+	if (signum == SIGUSR1)
 	{
-		ft_putstr_fd("Error\n", 1);
-		exit(1);
+		g_message_received = 1;
+		ft_putendl_fd("Message received", 1);
 	}
 }
 
-void	ft_feedback(int signum)
+static void	sigsend(pid_t pid, char *str, int delay)
 {
-	if (signum == SIGUSR1)
-		ft_putstr_fd("Message received\n", 1);
-	g_message_received = 1;
-}
+	int		i;
+	int		j;
 
-void	ft_sigsend(pid_t pid, char *str)
-{
-	int	i;
-	int	j;
-
+	send_blen(pid, ft_strlen(str), delay);
 	i = 0;
 	while (str[i])
 	{
@@ -46,17 +40,11 @@ void	ft_sigsend(pid_t pid, char *str)
 			else
 				ft_kill(pid, SIGUSR2);
 			j++;
-			usleep(400);
+			usleep(delay);
 		}
 		i++;
 	}
-	j = 0;
-	while (j < 8)
-	{
-		ft_kill(pid, SIGUSR2);
-		j++;
-		usleep(400);
-	}
+	send_stop(pid, delay);
 }
 
 int	main(int argc, char **argv)
@@ -66,23 +54,15 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		ft_putstr_fd("Wrong number of arguments\n", 1);
-		return (1);
-	}
-	str = argv[2];
-	if (ft_strlen(str) == 0)
-	{
-		ft_putstr_fd("Empty string\n", 1);
+		ft_putendl_fd("Wrong number of arguments", 2);
 		return (1);
 	}
 	pid = ft_atoi(argv[1]);
-	if (pid < 0)
-	{
-		ft_putstr_fd("Invalid PID\n", 1);
+	str = argv[2];
+	if (!validate_input(pid, str))
 		return (1);
-	}
-	signal(SIGUSR1, ft_feedback);
-	ft_sigsend(pid, str);
+	signal(SIGUSR1, feedback);
+	sigsend(pid, str, 200);
 	while (g_message_received == 0)
 		pause();
 	return (0);
