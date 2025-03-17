@@ -6,7 +6,7 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:12:54 by alisseye          #+#    #+#             */
-/*   Updated: 2025/03/17 16:58:42 by alisseye         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:00:03 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	send_blen(int pid, int len, int delay)
 	int	i;
 
 	i = 0;
-	while (i <= 32)
+	while (i < 32)
 	{
 		if (len & (1 << i))
 			ft_kill(pid, SIGUSR1);
