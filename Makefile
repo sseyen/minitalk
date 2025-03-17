@@ -6,7 +6,7 @@
 #    By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/24 12:32:35 by alisseye          #+#    #+#              #
-#    Updated: 2025/03/13 12:21:28 by alisseye         ###   ########.fr        #
+#    Updated: 2025/03/17 17:31:29 by alisseye         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,15 +27,15 @@ CFLAGS = -Wall -Wextra -Werror
 LIBFT_PATH = ./libft/
 LIBFT = $(LIBFT_PATH)libft.a
 
-all: $(SERVER) $(CLIENT)
+all: $(LIBFT) $(SERVER) $(CLIENT)
 
 %.o: %.c
 	cc $(CFLAGS) -c $< -o $@ -I $(LIBFT_PATH) -I includes 
 
-$(SERVER): $(LIBFT) $(SERVER_OBJS)
+$(SERVER): $(SERVER_OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(SERVER_OBJS) -o $(SERVER) -L $(LIBFT_PATH) -lft
 
-$(CLIENT): $(LIBFT) $(CLIENT_OBJS)
+$(CLIENT): $(CLIENT_OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(CLIENT_OBJS) -o $(CLIENT) -L $(LIBFT_PATH) -lft
 
 $(LIBFT):
@@ -51,4 +51,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re $(SERVER) $(CLIENT) $(LIBFT)
+.PHONY: all clean fclean re
