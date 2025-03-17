@@ -6,7 +6,7 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:19:49 by alisseye          #+#    #+#             */
-/*   Updated: 2025/03/17 16:51:48 by alisseye         ###   ########.fr       */
+/*   Updated: 2025/03/17 16:55:36 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	send_message(char **buff, siginfo_t *info, int *idx)
 
 static void	allocate_buff(int signum, char **buff)
 {
-	static int	size = 0;
-	static int	i = 0;
+	static unsigned int	size = 0;
+	static int			i = 0;
 
 	if (signum == SIGUSR1)
 		size |= (1 << i);
