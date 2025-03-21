@@ -6,7 +6,7 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:19:49 by alisseye          #+#    #+#             */
-/*   Updated: 2025/03/21 20:58:58 by alisseye         ###   ########.fr       */
+/*   Updated: 2025/03/21 21:06:44 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ static void	ft_sighandle(int signum, siginfo_t *info, void *context)
 		c |= (1 << i);
 	i++;
 	if (i != 8)
-	if (kill(info->si_pid, SIGUSR1) == -1)
-		ft_exit(&buff, "Failed to send feedback");
+		if (kill(info->si_pid, SIGUSR1) == -1)
+			ft_exit(&buff, "Failed to send feedback");
 	if (i == 8)
 	{
 		handle_char(&c, &buff, info, &idx);
