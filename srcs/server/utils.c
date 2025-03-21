@@ -6,7 +6,7 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:42:48 by alisseye          #+#    #+#             */
-/*   Updated: 2025/03/21 19:55:02 by alisseye         ###   ########.fr       */
+/*   Updated: 2025/03/21 20:57:12 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	handle_char(char *c, char **buff, siginfo_t *info, int *idx)
 	{
 		if (kill(info->si_pid, SIGUSR1) == -1)
 			ft_exit(buff, "Failed to send feedback");
-		usleep(200);
 		send_message(buff, info, idx);
 	}
 	else
