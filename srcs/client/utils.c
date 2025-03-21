@@ -6,7 +6,7 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:12:54 by alisseye          #+#    #+#             */
-/*   Updated: 2025/03/17 17:00:03 by alisseye         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:26:10 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_kill(int pid, int sig)
 	}
 }
 
-void	send_stop(int pid, int delay)
+void	send_stop(int pid)
 {
 	int	i;
 
@@ -44,12 +44,12 @@ void	send_stop(int pid, int delay)
 	while (i < 8)
 	{
 		ft_kill(pid, SIGUSR2);
+		wait_feedback();
 		i++;
-		usleep(delay);
 	}
 }
 
-void	send_blen(int pid, int len, int delay)
+void	send_blen(int pid, int len)
 {
 	int	i;
 
@@ -61,6 +61,6 @@ void	send_blen(int pid, int len, int delay)
 		else
 			ft_kill(pid, SIGUSR2);
 		i++;
-		usleep(delay);
+		wait_feedback();
 	}
 }

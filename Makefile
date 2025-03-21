@@ -6,7 +6,7 @@
 #    By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/24 12:32:35 by alisseye          #+#    #+#              #
-#    Updated: 2025/03/17 17:27:40 by alisseye         ###   ########.fr        #
+#    Updated: 2025/03/21 18:43:21 by alisseye         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minitalk
 SERVER = server
 CLIENT = client
 
-SERVER_SRCS = srcs/server/server.c
+SERVER_SRCS = srcs/server/server.c srcs/server/utils.c
 SERVER_OBJS = $(SERVER_SRCS:.c=.o)
 
 CLIENT_SRCS = srcs/client/client.c srcs/client/utils.c
