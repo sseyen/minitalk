@@ -6,7 +6,7 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 14:19:47 by alisseye          #+#    #+#             */
-/*   Updated: 2025/03/21 20:01:00 by alisseye         ###   ########.fr       */
+/*   Updated: 2025/03/22 09:58:29 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ static void	sigsend(pid_t pid, char *str)
 	int		i;
 	int		j;
 
-	send_blen(pid, ft_strlen(str));
-	wait_feedback();
 	i = 0;
 	while (str[i])
 	{
@@ -56,6 +54,7 @@ static void	sigsend(pid_t pid, char *str)
 				ft_kill(pid, SIGUSR2);
 			j++;
 			wait_feedback();
+			usleep(50);
 		}
 		i++;
 	}
@@ -82,7 +81,6 @@ int	main(int argc, char **argv)
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigsend(pid, str);
-	wait_feedback();
 	ft_putendl_fd("Message sent successfully!", 1);
 	return (0);
 }

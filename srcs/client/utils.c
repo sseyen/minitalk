@@ -6,7 +6,7 @@
 /*   By: alisseye <alisseye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:12:54 by alisseye          #+#    #+#             */
-/*   Updated: 2025/03/21 19:26:10 by alisseye         ###   ########.fr       */
+/*   Updated: 2025/03/22 09:58:17 by alisseye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,7 @@ void	send_stop(int pid)
 	{
 		ft_kill(pid, SIGUSR2);
 		wait_feedback();
+		usleep(50);
 		i++;
-	}
-}
-
-void	send_blen(int pid, int len)
-{
-	int	i;
-
-	i = 0;
-	while (i < 32)
-	{
-		if (len & (1 << i))
-			ft_kill(pid, SIGUSR1);
-		else
-			ft_kill(pid, SIGUSR2);
-		i++;
-		wait_feedback();
 	}
 }
